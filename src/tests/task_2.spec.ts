@@ -12,7 +12,12 @@ interface ICredentials {
     address: string;
     emailAddress: string;
     phone: string;
+    country: string;
     language: string;
+    skill: string;
+    year: string;
+    month: string;
+    day: string;
     password: string;
     confirmPassword:string
 }
@@ -30,16 +35,18 @@ test.describe("[Register] [Smoke]", () => {
     address: "Belarus, Minsk",
     emailAddress: "sidoruk.ang@gmail.com",
     phone: "375296440471",
+    country: "UK",
     language: "russian",
+    skill: "JavaScript",
+    year: "1999",
+    month: "October",
+    day: "7",
     password: "1233455",
     confirmPassword: "1233455"
 
     }
     
     
-    
-    
-
     test.beforeEach(async ({ page }) => {
     const url = "https://anatoly-karpovich.github.io/demo-registration-form/";
     await page.goto(url);
@@ -69,36 +76,37 @@ test.describe("[Register] [Smoke]", () => {
 
     
     await usernameInput.fill(validCredentials.firstName);
+    await expect(usernameInput).toHaveValue(validCredentials.firstName);
     await usersurnameInput.fill(validCredentials.lastName);
+    await expect(usersurnameInput).toHaveValue(validCredentials.lastName);
     await addressInput.fill(validCredentials.address);
+    await expect(addressInput).toHaveValue(validCredentials.address);
     await emailaddressInput.fill(validCredentials.emailAddress);
+    await expect(emailaddressInput).toHaveValue(validCredentials.emailAddress);
     await phoneInput.fill(validCredentials.phone);
-    await countrySelect.selectOption('UK');
-    await expect(countrySelect.locator('option:checked')).toHaveText('UK');
+    await expect(phoneInput).toHaveValue(validCredentials.phone);
+    await countrySelect.selectOption(validCredentials.country);
+    await expect(countrySelect.locator('option:checked')).toHaveText(validCredentials.country);
     await genderRadios.nth(1).check();
     await expect(genderRadios.nth(1)).toBeChecked();
     await hobbiesCheck.nth(0).check();
     await expect(hobbiesCheck.nth(0)).toBeChecked();
     await languageInput.fill(validCredentials.language);
-    await skillsSelect.selectOption('JavaScript');
-    await expect(skillsSelect).toHaveValue('JavaScript');
-    await dateofbirthyearSelect.selectOption('1999');
-    await expect(dateofbirthyearSelect.locator('option:checked')).toHaveText('1999');
-    await dateofbirthmonthSelect.selectOption('October');
-    await expect(dateofbirthmonthSelect.locator('option:checked')).toHaveText('October');
-    await dateofbirthdaySelect.selectOption('7');
-    await expect(dateofbirthdaySelect.locator('option:checked')).toHaveText('7');
+    await expect(languageInput).toHaveValue(validCredentials.language);
+    await skillsSelect.selectOption(validCredentials.skill);
+    await expect(skillsSelect).toHaveValue(validCredentials.skill);
+    await dateofbirthyearSelect.selectOption(validCredentials.year);
+    await expect(dateofbirthyearSelect.locator('option:checked')).toHaveText(validCredentials.year);
+    await dateofbirthmonthSelect.selectOption(validCredentials.month);
+    await expect(dateofbirthmonthSelect.locator('option:checked')).toHaveText(validCredentials.month);
+    await dateofbirthdaySelect.selectOption(validCredentials.day);
+    await expect(dateofbirthdaySelect.locator('option:checked')).toHaveText(validCredentials.day);
     await passwordInput.fill(validCredentials.password);
+    await expect(passwordInput).toHaveValue(validCredentials.password);
     await confirmpasswordInput.fill(validCredentials.confirmPassword);
+    await expect(confirmpasswordInput).toHaveValue(validCredentials.confirmPassword);
     await submitButton.click();
-
-
-    await expect(notification).toHaveText(NOTIFICATIONS.LOGIN_SUCCESS)
+    await expect(notification).toHaveText(NOTIFICATIONS.LOGIN_SUCCESS);
     });
   
-
-
-    
-
-
    }); 
