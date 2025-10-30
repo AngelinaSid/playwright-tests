@@ -13,6 +13,7 @@
 //   Password: обязательное
 
 import test, { expect } from "@playwright/test";
+import data from "./testData/registerNegativeCases.json";
 
 interface ICredentials {
   name: string;
@@ -43,80 +44,7 @@ enum MESSAGES {
 };
 
 test.describe("[Register form] [Negative tests]", () => {
-  const invalidUsernameCases: ICase[] = [
- {
-    name: "",
-    password: "",
-    message: MESSAGES.invalidCredentials,
-    description: "Empty username and password"
-  },
- {
-    name: "",
-    password: "SecretPw123!@#",
-    message: MESSAGES.emptyName,
-    description: "Empty username"
-  },
-  {
-    name: "     ",
-    password: "SecretPw123!@#",
-    message: MESSAGES.nameWithSpaces,
-    description: "Username only with spaces"
-  },
-  {
-    name: " Angelina",
-    password: "PassWord!@",
-    message: MESSAGES.nameWithSpaces,
-    description: "Spaces before username"
-  },
- {
-    name: "Angelina ",
-    password: "PassWord!@",
-    message: MESSAGES.nameWithSpaces,
-    description: "Spaces after username"
-  },
-  {
-    name: "An",
-    password: "PassWord!@",
-    message: MESSAGES.nameLessThreeCharacters,
-    description: "Username is less than 3 characters"
-  }
-];
-
-const invalidPasswordCases: ICase[] = [
-  {
-    name: "Angelina",
-    password: "",
-    message: MESSAGES.emptyPassword,
-    description: "Empty password"
-  },
-  {
-    name: "Angelina",
-    password: "123",
-    message: MESSAGES.shortPassword,
-    description: "Password less than 8 characters"
-  },
-  {
-    name: "Angelina",
-    password: "AAAAAAAAAA",
-    message: MESSAGES.passwordWithoutLowerCase,
-    description: "Password without lowercase"
-  },
-  {
-    name: "Angelina",
-    password: "        ",
-    message: MESSAGES.passwordWithSpaces,
-    description: "Password contains only spaces"
-  }
-];
-
-const existingUser: ICase[] = [
-    {
-    name: "Angelina",
-    password: "Sangelina!23",
-    message: MESSAGES.existingName,
-    description: "Existing name"
-    }
-]
+  
 
 test.beforeEach(async ({ page }) => {
     await page.goto("https://anatoly-karpovich.github.io/demo-login-form/");
@@ -130,7 +58,7 @@ test.beforeEach(async ({ page }) => {
   });
 
 
-for (const { name, password, message, description } of invalidUsernameCases){
+for (const { name, password, message, description } of data.invalidUsernameCases){
   test(`Register form - username validation: ${description}`, async ({ page }) => {
     const usernameInputOnRegister = page.locator("#userNameOnRegister");
     const passwordInputOnRegister = page.locator("#passwordOnRegister");
@@ -145,7 +73,7 @@ for (const { name, password, message, description } of invalidUsernameCases){
   });
 };
 
-for (const { name, password, message, description } of invalidPasswordCases) {
+for (const { name, password, message, description } of data.invalidPasswordCases) {
   test(`Register form - password validation: ${description}`, async ({ page }) => {
     const usernameInputOnRegister = page.locator("#userNameOnRegister");
     const passwordInputOnRegister = page.locator("#passwordOnRegister");
@@ -160,7 +88,7 @@ for (const { name, password, message, description } of invalidPasswordCases) {
   });
 };
 
-for (const { name, password, message, description } of existingUser) {
+for (const { name, password, message, description } of data.existingUser) {
     test(`Register form - existing name`, async ({ page }) => {
         await page.locator("#userNameOnRegister").fill(name);
         await page.locator("#passwordOnRegister").fill(password);

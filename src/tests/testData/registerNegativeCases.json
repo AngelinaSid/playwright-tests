@@ -1,0 +1,74 @@
+{
+  "invalidUsernameCases": [
+    {
+      "name": "",
+      "password": "",
+      "message": "Please, provide valid data",
+      "description": "Empty username and password"
+    },
+    {
+      "name": "",
+      "password": "SecretPw123!@#",
+      "message": "Username is required",
+      "description": "Empty username"
+    },
+    {
+      "name": "     ",
+      "password": "SecretPw123!@#",
+      "message": "Prefix and postfix spaces are not allowed is username",
+      "description": "Username only with spaces"
+    },
+    {
+      "name": " Angelina",
+      "password": "PassWord!@",
+      "message": "Prefix and postfix spaces are not allowed is username",
+      "description": "Spaces before username"
+    },
+    {
+      "name": "Angelina ",
+      "password": "PassWord!@",
+      "message": "Prefix and postfix spaces are not allowed is username",
+      "description": "Spaces after username"
+    },
+    {
+      "name": "An",
+      "password": "PassWord!@",
+      "message": "Username should contain at least 3 characters",
+      "description": "Username is less than 3 characters"
+    }
+  ],
+  "invalidPasswordCases": [
+    {
+      "name": "Angelina",
+      "password": "",
+      "message": "Password is required",
+      "description": "Empty password"
+    },
+    {
+      "name": "Angelina",
+      "password": "123",
+      "message": "Password should contain at least 8 characters",
+      "description": "Password less than 8 characters"
+    },
+    {
+      "name": "Angelina",
+      "password": "AAAAAAAAAA",
+      "message": "Password should contain at least one character in lower case",
+      "description": "Password without lowercase"
+    },
+    {
+      "name": "Angelina",
+      "password": "        ",
+      "message": "Password is required",
+      "description": "Password contains only spaces"
+    }
+  ],
+  "existingUser": [
+    {
+      "name": "Angelina",
+      "password": "Sangelina!23",
+      "message": "Username is in use",
+      "description": "Existing name"
+    }
+  ]
+}
