@@ -44,7 +44,7 @@ test.describe("[Sales Portal] [Add new Product]", async () => {
     await expect(productsListPage.toastMessage)
      .toContainText(NOTIFICATIONS.PRODUCT_CREATED);
 
-    const firstRow = await productsListPage.getFirstProductData();
+    const firstRow = await productsListPage.getFirstProductData(productData.name); 
 
     await expect(firstRow.name).toEqual(productData.name);
     await expect(firstRow.price).toEqual(productData.price);
